@@ -7,7 +7,9 @@ sys.path.append(pPath)
 from codes import readFasta
 import argparse
 dbName = '/home/zchen/Databases/uniref50/uniref50'
+dbName2 = '~/work/iFeature/TEData/uniref50/uniref50db'
 ncbidir = '/home/zchen/local/Tools/blast-2.2.18/bin'
+ncbidir2 = '/opt/aci/sw/ncbi-blast/2.6.0_gcc-5.3.1/bin/'
 
 def generatePSSMProfile(fastas, outDir, blastpgp, db):
 	"""
@@ -38,7 +40,8 @@ def generatePSSMProfile(fastas, outDir, blastpgp, db):
 		name, sequence = re.sub('\|', '', i[0]), i[1]
 		with open(name + '.txt', 'w') as f:
 			f.write('>'+name+'\n'+sequence + '\n')
-		myCmd = blastpgp + ' -i ' + name + '.txt' + ' -d ' + db + ' -b 0 -v 5000 -j 3 -h 0.001 -Q ' + outDir + '/' + name +'.pssm'
+		myCmd = blastpgp + ' -query ' + name + '.txt' + ' -db ' + db + ' -num_iterations 3 -num_threads 20 -out_ascii_pssm ' + outDir + '/' + name +'.pssm'
+#         myCmd = blastpgp + ' -i ' + name + '.txt' + ' -d ' + db + ' -b 0 -v 5000 -j 3 -h 0.001 -Q ' + outDir + '/' + name +'.pssm'
 		print('Doing psiblast for protein: ' + name)
 		os.system(myCmd)
 		os.remove(name + '.txt')
@@ -52,8 +55,8 @@ if __name__ == '__main__':
 	parser.add_argument("--db", help="the path of unief50 database")
 	args = parser.parse_args()
 
-	blastpgp = args.blastpgp if args.blastpgp != None else ncbidir + '/blastpgp'
-	db = args.db if args.db != None else dbName
+	blastpgp = args.blastpgp if args.blastpgp != None else ncbidir2 + 'psiblast' #ncbidir + '/blastpgp'
+	db = args.db if args.db != None else dbName2#dbName
 	fastas = readFasta.readFasta(args.file)
 	outputDir = generatePSSMProfile(fastas, 'out', blastpgp, db)
 	print('The PSSM profiles are stored in directory: ' + outputDir)
