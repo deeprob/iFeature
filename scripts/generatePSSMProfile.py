@@ -7,10 +7,10 @@ sys.path.append(pPath)
 from codes import readFasta
 import argparse
 dbName = '/home/zchen/Databases/uniref50/uniref50'
-dbName2 = '~/work/iFeature/TEData/uniref50/uniref50db'
+dbName2 = '~/work/iFeature/myData/uniref50/uniref50db'
 ncbidir = '/home/zchen/local/Tools/blast-2.2.18/bin'
 ncbidir2 = '/opt/aci/sw/ncbi-blast/2.6.0_gcc-5.3.1/bin/'
-outputdir = '../ThioesteraseEnzymeSpecificity/featEngg/pssmMethods/data/pssmProfiles'
+outputdir = 'out/'
 
 def generatePSSMProfile(fastas, outDir, blastpgp, db):
 	"""

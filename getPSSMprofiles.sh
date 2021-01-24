@@ -4,3 +4,5 @@ module load ncbi-blast/2.6.0
 enzfile='../ThioesteraseEnzymeSpecificity/data/SeqFile/EnzymeFasta.fa'
 python scripts/generatePSSMProfile.py --file $enzfile
 echo 'Profiles Generated'
+tempdir='out/'
+mv $tempdir ~/work/ThioesteraseEnzymeSpecificity/featEngg/pssmMethods/data/pssmProfiles/
