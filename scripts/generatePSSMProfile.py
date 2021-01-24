@@ -10,6 +10,7 @@ dbName = '/home/zchen/Databases/uniref50/uniref50'
 dbName2 = '~/work/iFeature/TEData/uniref50/uniref50db'
 ncbidir = '/home/zchen/local/Tools/blast-2.2.18/bin'
 ncbidir2 = '/opt/aci/sw/ncbi-blast/2.6.0_gcc-5.3.1/bin/'
+outputdir = '../ThioesteraseEnzymeSpecificity/featEngg/pssmMethods/data/pssmProfiles'
 
 def generatePSSMProfile(fastas, outDir, blastpgp, db):
 	"""
@@ -52,13 +53,13 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser(usage="it's usage tip.", description="generate PSSM profile")
 	parser.add_argument("--file", required=True, help="protein sequence file in fasta format")
 	parser.add_argument("--blastpgp", help="the path of NCBI psiblast program")
-	parser.add_argument("--db", help="the path of unief50 database")
+	parser.add_argument("--db", help="the path of uniref50 database")
 	args = parser.parse_args()
 
 	blastpgp = args.blastpgp if args.blastpgp != None else ncbidir2 + 'psiblast' #ncbidir + '/blastpgp'
 	db = args.db if args.db != None else dbName2#dbName
 	fastas = readFasta.readFasta(args.file)
-	outputDir = generatePSSMProfile(fastas, 'out', blastpgp, db)
+	outputDir = generatePSSMProfile(fastas, outputdir, blastpgp, db)
 	print('The PSSM profiles are stored in directory: ' + outputDir)
 
 
