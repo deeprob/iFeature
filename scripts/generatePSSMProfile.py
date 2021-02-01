@@ -9,7 +9,7 @@ import argparse
 dbName = '/home/zchen/Databases/uniref50/uniref50'
 dbName2 = '~/work/iFeature/myData/uniref50/uniref50db'
 ncbidir = '/home/zchen/local/Tools/blast-2.2.18/bin'
-ncbidir2 = '/opt/aci/sw/ncbi-blast/2.6.0_gcc-5.3.1/bin/'
+ncbidir2 = '/opt/aci/sw/ncbi-rmblastn/2.9.0_gcc-8.3.1-bxy/bin/'
 outputdir = 'out/'
 
 def generatePSSMProfile(fastas, outDir, blastpgp, db):
@@ -41,7 +41,7 @@ def generatePSSMProfile(fastas, outDir, blastpgp, db):
 		name, sequence = re.sub('\|', '', i[0]), i[1]
 		with open(name + '.txt', 'w') as f:
 			f.write('>'+name+'\n'+sequence + '\n')
-		myCmd = blastpgp + ' -query ' + name + '.txt' + ' -db ' + db + ' -num_iterations 3 -num_threads 20 -out_ascii_pssm ' + outDir + '/' + name +'.pssm'
+		myCmd = blastpgp + ' -query ' + name + '.txt' + ' -db ' + db + ' -num_iterations 3 -num_threads 24 -out_ascii_pssm ' + outDir + '/' + name +'.pssm'
 #         myCmd = blastpgp + ' -i ' + name + '.txt' + ' -d ' + db + ' -b 0 -v 5000 -j 3 -h 0.001 -Q ' + outDir + '/' + name +'.pssm'
 		print('Doing psiblast for protein: ' + name)
 		os.system(myCmd)
